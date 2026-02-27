@@ -87,8 +87,6 @@ public class Inventory extends Manage {
         try (Connection connect = DriverManager.getConnection("jdbc:sqlite:database.db")) {
             Statement statement = connect.createStatement();
             statement.execute("PRAGMA foreign_keys = ON;");
-            System.out.println(String.format("INSERT INTO item (categoryID, item, expiry, quantity) VALUES (%d, '%s', '%s', %d);",
-                this.categoryID, this.item, this.expiry, this.quantity));
             statement.execute(String.format(
                 "INSERT INTO item (categoryID, item, expiry, quantity) VALUES (%d, '%s', '%s', %d);",
                 this.categoryID, this.item, this.expiry, this.quantity
