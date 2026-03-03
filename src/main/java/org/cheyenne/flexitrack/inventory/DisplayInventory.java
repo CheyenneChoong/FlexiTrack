@@ -138,7 +138,7 @@ public class DisplayInventory {
         HBox.setMargin(addTab, new Insets(0, 10, 0, 10));
         HBox.setMargin(tabScroll, new Insets(0, 10, 0, 0));
 
-        Scene scene = new Scene(root, 400, 300, Color.WHITE);
+        Scene scene = new Scene(root, Color.WHITE);
         DisplayTabs();
         DisplayItem(currentTab);
         return scene;

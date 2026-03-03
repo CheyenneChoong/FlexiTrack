@@ -1,18 +1,18 @@
 package org.cheyenne.flexitrack;
 
-import org.cheyenne.flexitrack.inventory.DisplayInventory;
+import org.cheyenne.flexitrack.gardening.DisplayGardening;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
 import javafx.stage.Screen;
+import javafx.stage.Stage;
 
 public class Main extends Application {
     @Override
     public void start(Stage stage) {
-        DisplayInventory test = new DisplayInventory();
+        DisplayGardening test = new DisplayGardening();
         Scene scene = test.createScene();
-        stage.setTitle("Inventory");
+        stage.setTitle("Gardening");
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.setMinWidth(Screen.getPrimary().getVisualBounds().getWidth());

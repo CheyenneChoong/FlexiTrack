@@ -1,4 +1,4 @@
-package org.cheyenne.flexitrack.compost;
+package org.cheyenne.flexitrack.gardening;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -51,27 +51,35 @@ public class Compost extends Manage{
             result = statement.executeQuery("SELECT * FROM compost;");
             String[][] compostList = new String[rowCount][6];
             rowCount = 0;
-            DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDate start;
-            LocalDate later;
-            LocalDate today = LocalDate.now();
-            long days;
             while (result.next()) {
                 compostList[rowCount][0] = Integer.toString(result.getInt("compostID"));
                 compostList[rowCount][1] = result.getString("pot");
                 compostList[rowCount][2] = result.getString("status");
                 compostList[rowCount][3] = result.getString("startDate");
-                start = LocalDate.parse(result.getString("startDate"), format);
-                days = ChronoUnit.DAYS.between(start, today);
-                later = start.plusMonths(1);
-                compostList[rowCount][4] = later.format(format);
-                compostList[rowCount][5] = Long.toString(days);
+                Pot(result.getInt("compostID"), result.getString("pot"), result.getString("status"), result.getString("startDate"));
+                String[] calculated = getCalculated();
+                compostList[rowCount][4] = calculated[0];
+                compostList[rowCount][5] = calculated[1];
+                rowCount++;
             }
             return compostList;
         } catch (SQLException e) {
             System.out.println("Error in Compost getCompost: " + e);
             return null;
         }
+    }
+
+    public String[] getCalculated() {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate start;
+        LocalDate later;
+        LocalDate today = LocalDate.now();
+        long days;
+        start = LocalDate.parse(this.startDate, format);
+        days = ChronoUnit.DAYS.between(start, today);
+        later = start.plusMonths(1);
+        String[] calculated = {later.format(format), Long.toString(days)};
+        return calculated;
     }
 
     @Override

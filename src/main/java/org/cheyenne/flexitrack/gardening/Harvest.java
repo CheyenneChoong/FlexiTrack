@@ -1,4 +1,4 @@
-package org.cheyenne.flexitrack.plant;
+package org.cheyenne.flexitrack.gardening;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;

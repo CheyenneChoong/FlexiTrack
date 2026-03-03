@@ -1,4 +1,4 @@
-package org.cheyenne.flexitrack.plant;
+package org.cheyenne.flexitrack.gardening;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -22,18 +22,11 @@ public class Replant extends Manage {
             Statement statement = connect.createStatement();
             statement.execute("PRAGMA foreign_keys = ON;");
             statement.execute("""
-                    CREATE TABLE IF NOT EXISTS plant (
-                    plantID INTEGER PRIMARY KEY AUTOINCREMENT,
-                    plant TEXT NOT NULL
-                    );
-                    """);
-            statement.execute("""
                     CREATE TABLE IF NOT EXISTS replant (
                     replantID INTEGER PRIMARY KEY AUTOINCREMENT,
-                    plantID INTEGER,
+                    plant TEXT NOT NULL,
                     container TEXT NOT NULL,
-                    startDate TEXT NOT NULL,
-                    FOREIGN KEY (plantID) REFERENCES plant(plantID) ON DELETE CASCADE
+                    startDate TEXT NOT NULL
                     );
                     """);
         } catch (SQLException e) {
@@ -57,20 +50,17 @@ public class Replant extends Manage {
                 if (result.next()) {
                     rowCount = result.getInt("row");
                 }
-                result = statement.executeQuery("""
-                        SELECT r.replantID, p.plant, r.container, r.startDate
-                        FROM replant r LEFT JOIN plant p ON r.plantID = p.plantID;
-                        """);
+                result = statement.executeQuery("SELECT * FROM replant ;");
             } else {
                 result = statement.executeQuery(String.format(
-                    "SELECT COUNT(r.replantID) AS row FROM replant r LEFT JOIN plant p ON r.plantID = p.plantID WHERE p.plant LIKE '%%%s%%';",
+                    "SELECT COUNT(replantID) AS row FROM replant WHERE plant LIKE '%%%s%%';",
                     search
                 ));
                 if (result.next()) {
                     rowCount = result.getInt("row");
                 }
                 result = statement.executeQuery(String.format(
-                    "SELECT r.replantID, p.plant, r.container, r.startDate FROM replant r LEFT JOIN plant p ON r.plantID = p.plantID WHERE p.plant LIKE '%%%s%%';", 
+                    "SELECT * FROM replant WHERE plant LIKE '%%%s%%';", 
                     search
                 ));
             }
@@ -102,20 +92,10 @@ public class Replant extends Manage {
         try (Connection connect = DriverManager.getConnection("jdbc:sqlite:database.db")) {
             Statement statement = connect.createStatement();
             statement.execute("PRAGMA foreign_keys = ON;");
-            result = statement.executeQuery(String.format("SELECT plantID FROM plant WHERE plant = '%s';", this.plant));
-            int plantID;
-            if (result.next()) {
-                plantID = result.getInt("plantID");
-            } else {
-                statement.execute(String.format("INSERT INTO plant (plant) VALUES ('%s');", this.plant));
-                result = statement.getGeneratedKeys();
-                plantID = result.getInt(1);
-            }
             statement.execute(String.format(
-                "INSERT INTO replant (plantID, container, startDate) VALUES (%d, '%s', '%s');",
-                plantID, this.container, this.startDate
+                "INSERT INTO replant (plant, container, startDate) VALUES ('%s', '%s', '%s');",
+                this.plant, this.container, this.startDate
             ));
-            DeletePlant();
         } catch (SQLException e) {
             System.out.println("Error in Replant Create: " + e);
         }
@@ -126,20 +106,10 @@ public class Replant extends Manage {
         try (Connection connect = DriverManager.getConnection("jdbc:sqlite:database.db")) {
             Statement statement = connect.createStatement();
             statement.execute("PRAGMA foreign_keys = ON;");
-            result = statement.executeQuery(String.format("SELECT plantID FROM plant WHERE plant = '%s';", this.plant));
-            int plantID;
-            if (result.next()) {
-                plantID = result.getInt("plantID");
-            } else {
-                statement.execute(String.format("INSERT INTO plant (plant) VALUES ('%s');", this.plant));
-                result = statement.getGeneratedKeys();
-                plantID = result.getInt(1);
-            }
             statement.execute(String.format(
-                "UPDATE replant SET plantID = %d, container = '%s', startDate = '%s' WHERE replantID = %d;",
-                plantID, this.container, this.startDate, this.replantID
+                "UPDATE replant SET plant = '%s', container = '%s', startDate = '%s' WHERE replantID = %d;",
+                this.plant, this.container, this.startDate, this.replantID
             ));
-            DeletePlant();
         } catch (SQLException e) {
             System.out.println("Error in Replant Update: " + e);
         }
@@ -151,19 +121,8 @@ public class Replant extends Manage {
             Statement statement = connect.createStatement();
             statement.execute("PRAGMA foreign_keys = ON;");
             statement.execute(String.format("DELETE FROM replant WHERE replantID = %d", this.replantID));
-            DeletePlant();
         } catch (SQLException e) {
             System.out.println("Error in Replant Delete: " + e);
-        }
-    }
-
-    private void DeletePlant() {
-        try (Connection connect = DriverManager.getConnection("jdbc:sqlite:database.db")) {
-            Statement statement = connect.createStatement();
-            statement.execute("PRAGMA foreign_keys = ON;");
-            statement.execute("DELETE FROM plant WHERE plantID NOT IN (SELECT DISTINCT plantID FROM replant);");
-        } catch (SQLException e) {
-            System.out.println("Error in Replant DeletePlant: " + e);
         }
     }
 }
