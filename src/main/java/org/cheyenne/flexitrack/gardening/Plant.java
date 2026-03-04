@@ -126,6 +126,10 @@ public class Plant extends VBox {
         harvestButton.setOnMouseClicked(event -> {
             replantEditor.Data(this.replantID, this.plant, this.container, this.date);
             replantEditor.Delete();
+            Harvest harvest = new Harvest();
+            harvest.Data(0, this.plant, LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")), 1.00f);
+            harvest.Create();
+            mainControl.RefreshData();
         });
 
         ContextMenu menu = new ContextMenu();

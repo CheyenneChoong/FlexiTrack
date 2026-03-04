@@ -24,7 +24,7 @@ public class Harvest extends Manage {
                     harvestID INTEGER PRIMARY KEY AUTOINCREMENT,
                     plant TEXT NOT NULL,
                     date TEXT NOT NULL,
-                    worth REAL NOT NULL,
+                    worth REAL NOT NULL
                     );
                     """);
         } catch (SQLException e) {
@@ -51,11 +51,11 @@ public class Harvest extends Manage {
                 }
                 result = statement.executeQuery("SELECT * FROM harvest");
             } else {
-                result = statement.executeQuery(String.format("SELECT COUNT(harvestID) AS row FROM harvest WHERE plant = '%s';", filter));
+                result = statement.executeQuery(String.format("SELECT COUNT(harvestID) AS row FROM harvest WHERE plant LIKE '%%%s%%';", filter));
                 if (result.next()) {
                     rowCount = result.getInt("row");
                 }
-                result = statement.executeQuery(String.format("SELECT * FROM harvest WHERE plant = '%s';", filter));
+                result = statement.executeQuery(String.format("SELECT * FROM harvest WHERE plant LIKE '%%%s%%';", filter));
             }
             String[][] harvestLog = new String[rowCount][4];
             rowCount = 0;
@@ -80,7 +80,7 @@ public class Harvest extends Manage {
             if (filter.isBlank()) {
                 result = statement.executeQuery("SELECT date, worth FROM harvest;");
             } else {
-                result = statement.executeQuery(String.format("SELECT date, worth FROM harvest WHERE plant = '%s';", filter));
+                result = statement.executeQuery(String.format("SELECT date, worth FROM harvest WHERE plant LIKE '%%%s%%';", filter));
             }
             float month = 0f;
             float year = 0f;

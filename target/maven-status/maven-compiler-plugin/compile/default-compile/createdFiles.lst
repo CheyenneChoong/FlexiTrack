@@ -1,4 +1,5 @@
 org\cheyenne\flexitrack\gardening\DisplayCompost.class
+org\cheyenne\flexitrack\gardening\Log.class
 org\cheyenne\flexitrack\gardening\Harvest.class
 org\cheyenne\flexitrack\Main.class
 org\cheyenne\flexitrack\reminder\Reminder.class
@@ -14,3 +15,4 @@ org\cheyenne\flexitrack\gardening\Pot.class
 org\cheyenne\flexitrack\inventory\Item.class
 org\cheyenne\flexitrack\inventory\DisplayInventory.class
 org\cheyenne\flexitrack\inventory\Inventory.class
+org\cheyenne\flexitrack\gardening\DisplayHarvest.class

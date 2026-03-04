@@ -58,6 +58,11 @@ public class DisplayGardening {
         harvestTab.setMaxWidth(Double.MAX_VALUE);
         harvestTab.setOnMouseEntered(event -> harvestTab.setStyle(buttonHoverStyle));
         harvestTab.setOnMouseExited(event -> harvestTab.setStyle(buttonRegularStyle));
+        harvestTab.setOnMouseClicked(event -> {
+            DisplayHarvest harvest = new DisplayHarvest();
+            root.setCenter(harvest);
+            BorderPane.setMargin(harvest, new Insets(50));
+        });
         
         navigation.getChildren().addAll(compostTab, replantTab, harvestTab);
         HBox.setMargin(compostTab, new Insets(0, 20, 0, 20));
@@ -65,6 +70,10 @@ public class DisplayGardening {
         HBox.setHgrow(compostTab, Priority.ALWAYS);
         HBox.setHgrow(replantTab, Priority.ALWAYS);
         HBox.setHgrow(harvestTab, Priority.ALWAYS);
+
+        DisplayCompost compost = new DisplayCompost();
+        root.setCenter(compost);
+        BorderPane.setMargin(compost, new Insets(50));
 
         Scene scene = new Scene(root, Color.WHITE);
         return scene;
