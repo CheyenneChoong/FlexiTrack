@@ -151,7 +151,7 @@ public class Pot extends VBox {
     }
 
     private void Update() {
-        compostEditor.Pot(compostID, name, status, date);
+        compostEditor.Pot(this.compostID, this.name, this.status, this.date);
         compostEditor.Update();
         String[] calculated = compostEditor.getCalculated();
         oneMonth.setText("One Month: " + calculated[0]);
