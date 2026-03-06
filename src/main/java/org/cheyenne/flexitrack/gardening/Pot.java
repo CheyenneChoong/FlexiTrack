@@ -65,9 +65,23 @@ public class Pot extends VBox {
         HBox statusPanel = new HBox();
         statusPanel.getChildren().addAll(emptyOption, fillingOption, fullOption);
         statusPanel.setMaxWidth(Double.MAX_VALUE); 
-        emptyOption.setStyle("-fx-background-color: #88EAA4; -fx-font-size: 15; -fx-border-radius: 0; -fx-background-radius: 0;");
-        fillingOption.setStyle("-fx-background-color: #88EAA4; -fx-font-size: 15; -fx-border-radius: 0; -fx-background-radius: 0;");
-        fullOption.setStyle("-fx-background-color: #88EAA4; -fx-font-size: 15; -fx-border-radius: 0; -fx-background-radius: 0;");
+        switch (status) {
+            case "Empty" -> {
+                emptyOption.setStyle("-fx-background-color: #209641; -fx-font-size: 15; -fx-border-radius: 0; -fx-background-radius: 0;");
+                fillingOption.setStyle("-fx-background-color: #88EAA4; -fx-font-size: 15; -fx-border-radius: 0; -fx-background-radius: 0;");
+                fullOption.setStyle("-fx-background-color: #88EAA4; -fx-font-size: 15; -fx-border-radius: 0; -fx-background-radius: 0;");
+            }
+            case "Filling" -> {
+                emptyOption.setStyle("-fx-background-color: #88EAA4; -fx-font-size: 15; -fx-border-radius: 0; -fx-background-radius: 0;");
+                fillingOption.setStyle("-fx-background-color: #209641; -fx-font-size: 15; -fx-border-radius: 0; -fx-background-radius: 0;");
+                fullOption.setStyle("-fx-background-color: #88EAA4; -fx-font-size: 15; -fx-border-radius: 0; -fx-background-radius: 0;");
+            }
+            case "Full" -> {
+                emptyOption.setStyle("-fx-background-color: #88EAA4; -fx-font-size: 15; -fx-border-radius: 0; -fx-background-radius: 0;");
+                fillingOption.setStyle("-fx-background-color: #88EAA4; -fx-font-size: 15; -fx-border-radius: 0; -fx-background-radius: 0;");
+                fullOption.setStyle("-fx-background-color: #209641; -fx-font-size: 15; -fx-border-radius: 0; -fx-background-radius: 0;");
+            }
+        }
         emptyOption.setMaxWidth(Double.MAX_VALUE);
         fillingOption.setMaxWidth(Double.MAX_VALUE);
         fullOption.setMaxWidth(Double.MAX_VALUE);
