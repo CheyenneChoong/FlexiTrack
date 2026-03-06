@@ -56,8 +56,9 @@ public class Pot extends VBox {
         potName.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 potName.setEditable(true);
-            } else if (!potName.getText().isBlank()) {
+            } else if (!potName.getText().isBlank() && potName.isEditable()) {
                 potName.setEditable(false);
+                this.name = potName.getText();
                 Update();
             }
         });
