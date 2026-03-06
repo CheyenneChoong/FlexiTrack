@@ -38,7 +38,6 @@ public class DisplayInventory {
             -fx-font-size: 30;
         """);
 
-
         Button addItem = new Button("+");
         addItem.setStyle("""
             -fx-background-color: #88D0EA;

@@ -8,8 +8,10 @@ org\cheyenne\flexitrack\inventory\Category.class
 org\cheyenne\flexitrack\gardening\Compost.class
 org\cheyenne\flexitrack\gardening\Plant.class
 org\cheyenne\flexitrack\gardening\DisplayReplant.class
+org\cheyenne\flexitrack\reminder\DisplayReminder.class
 org\cheyenne\flexitrack\gardening\Replant.class
 org\cheyenne\flexitrack\manage\Manage.class
+org\cheyenne\flexitrack\reminder\Message.class
 org\cheyenne\flexitrack\inventory\CategoryTab.class
 org\cheyenne\flexitrack\gardening\Pot.class
 org\cheyenne\flexitrack\inventory\Item.class

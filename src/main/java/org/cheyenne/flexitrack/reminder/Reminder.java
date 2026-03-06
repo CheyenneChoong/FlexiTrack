@@ -6,7 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Reminder {
+import org.cheyenne.flexitrack.manage.Manage;
+
+public class Reminder extends Manage {
+    private int reminderID;
+    private String reminder;
+    private String date;
+
     public Reminder() {
         try (Connection connect = DriverManager.getConnection("jdbc:sqlite:database.db")) {
             Statement statement = connect.createStatement();
@@ -55,24 +61,46 @@ public class Reminder {
         }
     }
 
-    public void Create(String reminder, String date) {
+    public void Data(int reminderID, String reminder, String date) {
+        this.reminderID = reminderID;
+        this.reminder = reminder;
+        this.date = date;
+    }
+
+    @Override
+    public void Create() {
         try (Connection connect = DriverManager.getConnection("jdbc:sqlite:database.db")) {
             Statement statement = connect.createStatement();
             statement.execute("PRAGMA foreign_keys = ON;");
             statement.execute(String.format(
                 "INSERT INTO reminder (reminder, date) VALUES ('%s', '%s');",
-                reminder, date
+                this.reminder, this.date
             ));
         } catch (SQLException e) {
             System.out.println("Error in Reminder Create: " + e);
         }
     }
 
-    public void Delete(int reminderID) {
+    @Override
+    public void Update() {
         try (Connection connect = DriverManager.getConnection("jdbc:sqlite:database.db")) {
             Statement statement = connect.createStatement();
             statement.execute("PRAGMA foreign_keys = ON;");
-            statement.execute("DELETE FROM reminder WHERE reminderID = %d", reminderID);
+            statement.execute(String.format(
+                "UPDATE reminder SET reminder = '%s', date = '%s' WHERE reminderID = %d",
+                this.reminder, this.date, this.reminderID
+            ));
+        } catch (SQLException e) {
+            System.out.println("Error in Reminder Update: " + e);
+        }
+    }
+
+    @Override
+    public void Delete() {
+        try (Connection connect = DriverManager.getConnection("jdbc:sqlite:database.db")) {
+            Statement statement = connect.createStatement();
+            statement.execute("PRAGMA foreign_keys = ON;");
+            statement.execute(String.format("DELETE FROM reminder WHERE reminderID = %d", this.reminderID));
         } catch (SQLException e) {
             System.out.println("Error in Reminder Delete: " + e);
         }
