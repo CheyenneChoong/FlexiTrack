@@ -9,9 +9,9 @@ This project aims to develop a desktop application with features requested from 
 | --- | --- |
 | Reminder | This feature provides the user with a way to set reminders about something in the future. |
 | Inventory | Inventory system that helps user to organize and track their inventory. |
-| Compost Schedule | Custom feature requested for tracking the pot and duration the compost has been composting in the pot. This feature also tracks the status of the pot. |
-| Replant Schedule | Custom feature requested for tracking the schedule for replanting plants. Tracks the duration a plant has been growing and which container its in. |
-| Harvest Log | Custom feature requested for tracking the harvest and the worth of each harvest. Sums up the total worth of the plants harvested based on month, year and lifetime. |
+| Compost Schedule | Custom feature requested to record and track composting activity, including pot details, duration and current status. |
+| Replant Schedule | Custom feature requested to monitor plant growth timelines and container assignments as well as ensuring timely replanting. |
+| Harvest Log | Custom feature requested to track and log harvests and calculate their value, providing monthly, yearly and lifetime summaries. |
 
 ## Tech Stack
 |||
