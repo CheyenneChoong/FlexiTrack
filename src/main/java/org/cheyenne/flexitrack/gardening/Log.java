@@ -51,6 +51,7 @@ public class Log extends HBox {
             this.date = dateField.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             harvestEditor.Data(this.harvestID, this.plant, this.date, this.worth);
             harvestEditor.Update();
+            mainControl.RefreshData();
         });
 
         plantName.setText(plant);
@@ -68,6 +69,7 @@ public class Log extends HBox {
                 this.plant = plantName.getText();
                 harvestEditor.Data(this.harvestID, this.plant, this.date, this.worth);
                 harvestEditor.Update();
+                mainControl.RefreshData();
             }
         });
 
@@ -86,6 +88,7 @@ public class Log extends HBox {
                 harvestEditor.Data(this.harvestID, this.plant, this.date, this.worth);
                 harvestEditor.Update();
                 worthField.setEditable(false);
+                mainControl.RefreshData();
             }
         });
 
